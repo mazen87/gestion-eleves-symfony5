@@ -1,0 +1,45 @@
+{% extends 'gabarit.html.twig'%}
+{% block title %}  {{parent()}} | Accueil {% endblock %}
+{% block main %}
+    <h2> Liste des Elèves </h2>
+      <table> 
+       <a id="ajouterEleve" href={{ path("eleve_add") }}> Ajoter Elève</a>
+        <tr>
+            <th>Nom</th><th>Prénom</th><th>Date de naissance</th><th>Moyen</th>
+        </tr>
+        {% set nombreEleves = 0 %}
+        {% set noteTotal = 0 %}
+        {% set avg = 0 %}
+
+
+        {% for eleve in eleves %}
+       
+        {% set nombreEleves = nombreEleves + 1 %}
+        {% set noteTotal = noteTotal + eleve.moyen %}
+        <tr>
+            <td>{{eleve.nom}}</td>
+            <td>{{eleve.prenom}}</td>
+            <td>{{eleve.dateNaissance | date("d/m/Y")}}</td>
+            <td>{{eleve.moyen}}</td>   
+        </tr>
+
+
+        {% endfor %}
+       
+        
+       </table>
+        <div id="info">
+    <br>
+    <label> Nombre d'élèves : </label>
+    <span>  {% if nombreEleves != 0 %}
+            {{ nombreEleves}}
+            {% endif %}  
+
+    </span><br>
+    <label> Moyen    : </label><span>
+            {% if nombreEleves != 0 %}
+            {{ noteTotal // nombreEleves}}
+            {% endif %}  
+    </span><br>
+    </div> 
+{% endblock %}

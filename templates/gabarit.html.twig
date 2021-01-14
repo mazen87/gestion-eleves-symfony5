@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="FR">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet/less" type="text/css" href= {{asset("index.less")}} />
+        <script src={{asset("Less/less.js")}}></script>
+        <title> {% block title %} Gestion des Elèves {% endblock %}</title>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+               <a href={{path('accueil')}}> <h1> Gestion des Elèves</h1></a>
+            </header>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                <div  class="flash-{{ label }}"> {{message}} </div>
+                {% endfor %}
+            {% endfor %}    
+            
+            <main>
+                {% block main%} {% endblock%}
+            </main>
+            <div class="separateur">      
+            
+            
+            </div>
+
+            <footer>
+                &copy  {{ "now" | date("Y") }} Gestion des Elèves
+            </footer>
+        
+        </div>
+    
+    
+    </body>
+
+</html>
