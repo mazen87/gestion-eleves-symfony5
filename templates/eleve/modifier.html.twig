@@ -1,0 +1,13 @@
+{% extends 'gabarit.html.twig' %}
+{% block main %} 
+<h2> Modifier Elève</h2>
+{{ form_start(modifierEleveForm)}}
+
+{{ form_widget(modifierEleveForm)}}
+<input type="submit"  value="Modifier"/>
+
+{{ form_end(modifierEleveForm)}}
+
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Modifier Elève{% endblock %}

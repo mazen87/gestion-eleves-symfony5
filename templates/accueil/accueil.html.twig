@@ -2,10 +2,20 @@
 {% block title %}  {{parent()}} | Accueil {% endblock %}
 {% block main %}
     <h2> Liste des Elèves </h2>
+
+       <form method="POST" action={{path('accueil')}}>
+          <select name="filtrer">   
+            <option value="0">Tous</option>
+            {% for classe in classes %}
+            <option value={{classe.id}}> {{ classe.classeName }}</option>
+            {% endfor %}
+          </select> 
+          <input type="submit" value="Filtrer" /> 
+       </form>
       <table> 
        <a id="ajouterEleve" href={{ path("eleve_add") }}> Ajoter Elève</a>
         <tr>
-            <th>Nom</th><th>Prénom</th><th>Date de Naissance</th><th>Moyen</th>
+            <th>Nom</th><th>Prénom</th><th>Date de Naissance</th><th>Moyen</th><th>Classe</th><th></th>
         </tr>
         {% set nombreEleves = 0 %}
         {% set noteTotal = 0 %}
@@ -20,7 +30,9 @@
             <td>{{eleve.nom}}</td>
             <td>{{eleve.prenom}}</td>
             <td>{{eleve.dateNaissance | date("d/m/Y")}}</td>
-            <td>{{eleve.moyen}}</td>   
+            <td>{{eleve.moyen}}</td>  
+            <td>{{eleve.classe.classeName}}</td>
+            <td><a href={{path('eleve_modifier', {'id': eleve.id})}}>Modifier</a></td> 
         </tr>
 
 
