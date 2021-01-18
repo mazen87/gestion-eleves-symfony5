@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Eleve;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,46 @@ class EleveRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Eleve::class);
     }
+
+    public function selectElevesEtClasses() {
+           $qb = $this->createQueryBuilder('e');
+           $qb->join('e.classe', 'c')
+              ->addSelect('c');
+            $query = $qb->getQuery();
+        
+            return new Paginator($query);
+         
+    }
+
+    public function selectEleveEtClasse(int $id)  {
+        $qb = $this->createQueryBuilder('e');
+        $qb->andWhere('e.id = :id')
+           ->join('e.classe', 'c')
+           ->addSelect('c')
+           ->setParameter('id', $id);
+        $query = $qb->getQuery();
+        $result =  $query->getResult();
+        if(empty($result)){
+            return null;
+        }else{
+            //$eleve = new Eleve();
+        $eleve = $result[0];
+        return $eleve;
+        }
+        
+}
+
+public function selectElevesParClasse(int $id) {
+    $qb = $this->createQueryBuilder('e');
+    $qb->join('e.classe', 'c')
+       ->addSelect('c')
+       ->andWhere('c.id= :id')
+       ->setParameter('id', $id);
+     $query = $qb->getQuery();
+ 
+     return new Paginator($query);
+  
+}    
 
     // /**
     //  * @return Eleve[] Returns an array of Eleve objects

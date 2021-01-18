@@ -34,7 +34,7 @@ class Eleve
      */
     private $dateNaissance;
     /**
-     * @Assert\Type(type="number" ,message="saisissez des valeurs valides SVP ! ")
+     * @Assert\Type(type="float" ,message="saisissez des valeurs valides SVP ! ")
      * @ORM\column(type="float",nullable=true)
      */
     private $moyen;
